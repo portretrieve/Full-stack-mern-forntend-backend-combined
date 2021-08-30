@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 const placesRoutes = require("./routes/places-routes");
-const usersRoutes = require("./routes/users-routes");
+const userRoutes = require("./routes/users-routes");
 const HttpError = require("./models/http-error");
 
 app.use(express.json());
@@ -13,7 +13,7 @@ app.use(
 );
 
 app.use("/api/places", placesRoutes);
-app.use("/api/users", usersRoutes);
+app.use("/api/users", placesRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route", 404);
