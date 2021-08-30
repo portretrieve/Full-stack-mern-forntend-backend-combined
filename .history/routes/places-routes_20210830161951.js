@@ -6,7 +6,7 @@ const {
   getPlaceByPlaceId,
   getPlaceByUserId,
   createPlace,
-  updatePlace,
+  updatePlaceById,
   deletePlace
 } = require("../controller/places-controller");
 

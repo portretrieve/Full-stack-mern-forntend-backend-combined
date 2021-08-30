@@ -1,7 +1,7 @@
 const HttpError = require("../models/http-error");
 const uuid = require("uuid");
 
-let DUMMY_PLACES = [
+const DUMMY_PLACES = [
   {
     id: "p1",
     title: "Empire State Building-1",
@@ -75,15 +75,21 @@ const updatePlace = (req, res, next) => {
     description: req.body.description
   };
 
-  DUMMY_PLACES[placeIndex] = updatedPlace;
+  DUMMY_PLACES[placeIndex] = updatePlace;
 
-  res.status(200).json({ place: updatedPlace });
+  res.status();
 };
 
 const deletePlace = (req, res, next) => {
   const placeId = req.params.pid;
-  DUMMY_PLACES = DUMMY_PLACES.filter((place) => place.id !== placeId);
-  res.status(200).json({ newPlaces: DUMMY_PLACES });
+  const placeToDelete = DUMMY_PLACES.find((place) => place.id === placeId);
+  if (placeToDelete) {
+    const index = DUMMY_PLACES.indexOf(placeToDelete);
+    DUMMY_PLACES.splice(index, 1);
+    return res.status(201).json("Delete Successfull");
+  } else {
+    return next(new HttpError("Place not found", 404));
+  }
 };
 
 exports.getPlaceByPlaceId = getPlaceByPlaceId;

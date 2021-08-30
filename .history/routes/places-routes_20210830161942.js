@@ -6,7 +6,7 @@ const {
   getPlaceByPlaceId,
   getPlaceByUserId,
   createPlace,
-  updatePlace,
+  updatePlaceById,
   deletePlace
 } = require("../controller/places-controller");
 
@@ -16,8 +16,8 @@ router.get("/user/:uid", getPlaceByUserId);
 
 router.post("/", createPlace);
 
-router.patch("/:pid", updatePlace);
+router.patch("/:pid", updatePlaceById);
 
-router.delete("/:pid", deletePlace);
+router.delete("/:pid", deletePlaceById);
 
 module.exports = router;
