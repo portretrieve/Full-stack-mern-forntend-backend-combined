@@ -62,9 +62,7 @@ const createPlace = async (req, res, next) => {
   let coordinates;
   try {
     coordinates = await getCoordsForAddress(address);
-  } catch (error) {
-    return next(error);
-  }
+  } catch (error) {}
 
   const createdPlace = {
     id: uuid.v4(),

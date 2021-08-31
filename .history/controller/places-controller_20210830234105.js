@@ -58,14 +58,7 @@ const createPlace = async (req, res, next) => {
     );
   }
 
-  const { title, description, address, creator } = req.body;
-  let coordinates;
-  try {
-    coordinates = await getCoordsForAddress(address);
-  } catch (error) {
-    return next(error);
-  }
-
+  const { title, description, address, creator, coordinates } = req.body;
   const createdPlace = {
     id: uuid.v4(),
     title,

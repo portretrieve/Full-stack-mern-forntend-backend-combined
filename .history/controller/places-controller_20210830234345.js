@@ -63,7 +63,7 @@ const createPlace = async (req, res, next) => {
   try {
     coordinates = await getCoordsForAddress(address);
   } catch (error) {
-    return next(error);
+    next(error);
   }
 
   const createdPlace = {
