@@ -29,9 +29,4 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" });
 });
 
-mongoose
-  .connect(
-    "mongodb+srv://deveshk:deveshk@fullstackcluster.mtcih.mongodb.net/fullStackDatabase?retryWrites=true&w=majority"
-  )
-  .then(() => app.listen(5000))
-  .catch((err) => console.log(err));
+app.listen(5000);

@@ -127,10 +127,8 @@ const deletePlace = async (req, res, next) => {
     );
   }
   try {
-    await place.remove();
-  } catch (error) {
-    return next(new HttpError("Could not delete. Please try again", 404));
-  }
+    place.remove();
+  } catch (error) {}
 
   res.status(200).json({ deletedPlace: place.toObject({ getters: true }) });
 };

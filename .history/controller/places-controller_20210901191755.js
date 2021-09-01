@@ -126,11 +126,6 @@ const deletePlace = async (req, res, next) => {
       new HttpError("No such place was found to delete for that id", 404)
     );
   }
-  try {
-    await place.remove();
-  } catch (error) {
-    return next(new HttpError("Could not delete. Please try again", 404));
-  }
 
   res.status(200).json({ deletedPlace: place.toObject({ getters: true }) });
 };
