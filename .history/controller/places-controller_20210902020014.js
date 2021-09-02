@@ -1,9 +1,9 @@
 const HttpError = require("../models/http-error");
+const uuid = require("uuid");
 const { validationResult } = require("express-validator");
 const getCoordsForAddress = require("../util/location");
 const Place = require("../models/place-model");
 const User = require("../models/user-model");
-const mongoose = require("mongoose");
 
 const createPlace = async (req, res, next) => {
   const errors = validationResult(req);
@@ -45,11 +45,11 @@ const createPlace = async (req, res, next) => {
 
   try {
     const sess = await mongoose.startSession();
-    sess.startTransaction();
-    await createdPlace.save({ session: sess });
+    sess.start;
+    await createPlace.save({ session: sess });
     user.places.push(createdPlace);
     await user.save({ session: sess });
-    await sess.commitTransaction();
+    session.commitTransaction();
   } catch (error) {
     return next(new HttpError("Creating place failed, try again!", 500));
   }
@@ -74,7 +74,7 @@ const getPlaceByPlaceId = async (req, res, next) => {
   res.json({ foundPlace: place.toObject({ getters: true }) });
 };
 
-const getPlacesByUserId = async (req, res, next) => {
+const getPlaceByUserId = async (req, res, next) => {
   const userId = req.params.uid;
   let places;
 
@@ -135,7 +135,7 @@ const deletePlace = async (req, res, next) => {
   let place;
 
   try {
-    place = await Place.findById(placeId).populate("creator");
+    place = await Place.findById(placeId);
   } catch (error) {
     return next(new HttpError("Could not delete. Please try again", 500));
   }
@@ -146,12 +146,7 @@ const deletePlace = async (req, res, next) => {
     );
   }
   try {
-    const sess = await mongoose.startSession();
-    sess.startTransaction();
-    await place.remove({ session: sess });
-    place.creator.places.pull(place);
-    await place.creator.save({ session: sess });
-    await sess.commitTransaction();
+    await place.remove();
   } catch (error) {
     return next(new HttpError("Could not delete. Please try again", 404));
   }
@@ -160,7 +155,7 @@ const deletePlace = async (req, res, next) => {
 };
 
 exports.getPlaceByPlaceId = getPlaceByPlaceId;
-exports.getPlaceByUserId = getPlacesByUserId;
+exports.getPlaceByUserId = getPlaceByUserId;
 exports.createPlace = createPlace;
 exports.updatePlace = updatePlace;
 exports.deletePlace = deletePlace;

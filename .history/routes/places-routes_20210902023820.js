@@ -5,7 +5,7 @@ const { check } = require("express-validator");
 const HttpError = require("../models/http-error");
 const {
   getPlaceByPlaceId,
-  getPlaceByUserId: getPlacesByUserId,
+  getPlaceByUserId,
   createPlace,
   updatePlace,
   deletePlace
@@ -13,7 +13,7 @@ const {
 
 router.get("/:pid", getPlaceByPlaceId);
 
-router.get("/user/:uid", getPlacesByUserId);
+router.get("/user/:uid", getPlaceByUserId);
 
 router.post(
   "/",

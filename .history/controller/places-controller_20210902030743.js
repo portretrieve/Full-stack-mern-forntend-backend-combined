@@ -74,7 +74,7 @@ const getPlaceByPlaceId = async (req, res, next) => {
   res.json({ foundPlace: place.toObject({ getters: true }) });
 };
 
-const getPlacesByUserId = async (req, res, next) => {
+const getPlaceByUserId = async (req, res, next) => {
   const userId = req.params.uid;
   let places;
 
@@ -149,8 +149,6 @@ const deletePlace = async (req, res, next) => {
     const sess = await mongoose.startSession();
     sess.startTransaction();
     await place.remove({ session: sess });
-    place.creator.places.pull(place);
-    await place.creator.save({ session: sess });
     await sess.commitTransaction();
   } catch (error) {
     return next(new HttpError("Could not delete. Please try again", 404));
@@ -160,7 +158,7 @@ const deletePlace = async (req, res, next) => {
 };
 
 exports.getPlaceByPlaceId = getPlaceByPlaceId;
-exports.getPlaceByUserId = getPlacesByUserId;
+exports.getPlaceByUserId = getPlaceByUserId;
 exports.createPlace = createPlace;
 exports.updatePlace = updatePlace;
 exports.deletePlace = deletePlace;

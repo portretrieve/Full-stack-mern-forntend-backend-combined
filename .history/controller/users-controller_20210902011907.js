@@ -31,7 +31,7 @@ const createUser = async (req, res, next) => {
     );
   }
 
-  const { email: emailInput, name, password } = req.body;
+  const { email: emailInput, name, password, places } = req.body;
 
   let existingUser;
 

@@ -74,7 +74,7 @@ const getPlaceByPlaceId = async (req, res, next) => {
   res.json({ foundPlace: place.toObject({ getters: true }) });
 };
 
-const getPlacesByUserId = async (req, res, next) => {
+const getPlaceByUserId = async (req, res, next) => {
   const userId = req.params.uid;
   let places;
 
@@ -160,7 +160,7 @@ const deletePlace = async (req, res, next) => {
 };
 
 exports.getPlaceByPlaceId = getPlaceByPlaceId;
-exports.getPlaceByUserId = getPlacesByUserId;
+exports.getPlaceByUserId = getPlaceByUserId;
 exports.createPlace = createPlace;
 exports.updatePlace = updatePlace;
 exports.deletePlace = deletePlace;
