@@ -1,11 +1,14 @@
+const uuid = require("uuid");
+
 const HttpError = require("../models/http-error");
 const { validationResult } = require("express-validator");
 const User = require("../models/user-model");
 
 const getAllUsers = async (req, res, next) => {
+  // res.status(200).json([USERS]);
   let users;
   try {
-    users = await User.find({}, "-password");
+    places = await User.find();
   } catch (error) {
     return next(
       new HttpError(
@@ -15,11 +18,11 @@ const getAllUsers = async (req, res, next) => {
     );
   }
 
-  if (!users || users.length === 0) {
+  if (!places || places.length === 0) {
     return next(new HttpError("unable to find the places. Try Again", 404));
   }
 
-  res.json(users.map((user) => user.toObject({ getters: true })));
+  res.json(places.map((place) => place.toObject({ getters: true })));
 };
 
 const createUser = async (req, res, next) => {
@@ -67,17 +70,10 @@ const createUser = async (req, res, next) => {
   res.status(201).json({ CreatedUser: newUser.toObject({ getters: true }) });
 };
 
-const login = async (req, res, next) => {
-  let identifiedUser;
-  try {
-    identifiedUser = await User.findOne({
-      email: req.body.email
-    });
-  } catch (error) {
-    return next(new HttpError("Sorry unable to login. Try Again Later", 500));
-  }
-
-  if (!identifiedUser || identifiedUser.password !== req.body.password) {
+const login = (req, res, next) => {
+  const { email, password } = req.body;
+  const identifiedUser = USERS.find((user) => user.email === email);
+  if (!identifiedUser) {
     return next(new HttpError("Invalid Credentials", 401));
   }
 

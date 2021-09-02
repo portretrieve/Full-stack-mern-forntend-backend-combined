@@ -5,7 +5,7 @@ const User = require("../models/user-model");
 const getAllUsers = async (req, res, next) => {
   let users;
   try {
-    users = await User.find({}, "-password");
+    users = await User.find();
   } catch (error) {
     return next(
       new HttpError(
@@ -16,7 +16,7 @@ const getAllUsers = async (req, res, next) => {
   }
 
   if (!users || users.length === 0) {
-    return next(new HttpError("unable to find the places. Try Again", 404));
+    return next(new HttpError("unable to find the users. Try Again", 404));
   }
 
   res.json(users.map((user) => user.toObject({ getters: true })));
