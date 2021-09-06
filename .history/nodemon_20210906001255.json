@@ -1,0 +1,9 @@
+{
+    "env": {
+        "DB_USER": "deveshk",
+        "DB_PASSWORD": "deveshk",
+        "DB_NAME": "mern",
+        "JWT_KEY": "SuperSecretPrivateKey__Not_to_be_shared",
+        "GOOGLE_API_KEY": "AIzaSyDnL2X4HFbVqGnpgW7-wXPOfLJ7LNXHZAE"
+    }
+}
